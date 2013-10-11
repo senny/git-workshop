@@ -104,8 +104,12 @@ body {
       -moz-box-pack: start;
       -ms-box-pack: start;
       box-pack: start; }
-      .keydown.deck-container .slide.full-background.test {
-        background-image: url(../images/test.png); }
+      .keydown.deck-container .slide.full-background.clockwork {
+        background-image: url(../images/clockwork.jpg); }
+      .keydown.deck-container .slide.full-background.circuit_board {
+        background-image: url(../images/circuit_board.jpg); }
+      .keydown.deck-container .slide.full-background.exercise {
+        background-image: url(../images/exercise.jpg); }
       .keydown.deck-container .slide.full-background h1 {
         display: inline;
         position: absolute;
