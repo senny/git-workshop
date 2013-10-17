@@ -321,7 +321,7 @@ Finished one cherry-pick.
 !SLIDE
 ## Fast Forward
 
-* Merge von einem nicht abgezweiten Branch => Fast Forward
+* Merge von einem nicht divergierenden Branch => Fast Forward
 * Fast Forward Merge => kein Merge-Commit
 * Fast Forward Merge => Branch in der History nicht mehr sichtbar
 
@@ -385,10 +385,58 @@ Finished one cherry-pick.
 # Rebase | Merge #
 
 * NICHT rebasen mit veröffentlichten Commits
-* NICHT rebasen bei grossen Branches
+* NICHT rebasen bei grossen / umfänglichen Branches
 * Merge ist in der History sichtbar (wenn nicht FF)
 * Rebase simuliert lineare History
 * Rebase --onto um Commits zu verschieben
+
+!SLIDE left
+
+# Reflog #
+
+* Zeichnet Verändernungen an den Referenzen auf
+* Lokal gespeichert / unterschiedlich pro Repository
+* Hilfreich bei "rescue missions" ;)
+
+!SLIDE
+
+```
+
+$ git reflog
+0a620d1 HEAD@{11}: reset: moving to HEAD^
+95a9b7d HEAD@{12}: rebase -i (finish): returning to refs/heads/store_accessor_hstore_bug
+95a9b7d HEAD@{13}: rebase -i (pick): hstore only allows string keys.
+0a620d1 HEAD@{14}: rebase -i (pick): `stored_attributes` need to be specific to a subclass.
+d138b71 HEAD@{15}: rebase -i (pick): test to verify the `ActiveRecord::Store` behavior with PG
+bdeeba1 HEAD@{16}: checkout: moving from store_accessor_hstore_bug to bdeeba1
+a04f344 HEAD@{17}: commit: `stored_attributes` need to be specific to a subclass.
+6f7b700 HEAD@{18}: commit: test to verify the `ActiveRecord::Store` behavior with PG's json type
+33829ab HEAD@{19}: commit (amend): hstore only allows string keys.
+28152cd HEAD@{20}: commit: hstore only allows string keys.
+bdeeba1 HEAD@{21}: reset: moving to HEAD^
+1986aa9 HEAD@{22}: rebase finished: returning to refs/heads/store_accessor_hstore_bug
+1986aa9 HEAD@{23}: rebase: TMP
+bdeeba1 HEAD@{24}: checkout: moving from store_accessor_hstore_bug to bdeeba1
+94fb685 HEAD@{25}: checkout: moving from master to store_accessor_hstore_bug
+bdeeba1 HEAD@{26}: rebase finished: returning to refs/heads/master
+bdeeba1 HEAD@{27}: checkout: moving from master to bdeeba1
+a0c0c1c HEAD@{28}: checkout: moving from store_accessor_hstore_bug to master
+94fb685 HEAD@{29}: rebase finished: returning to refs/heads/store_accessor_hstore_bug
+94fb685 HEAD@{30}: rebase: TMP
+a0c0c1c HEAD@{31}: checkout: moving from store_accessor_hstore_bug to a0c0c1c
+329d9f8 HEAD@{32}: checkout: moving from master to store_accessor_hstore_bug
+a0c0c1c HEAD@{33}: checkout: moving from 4-0-stable to master
+cfd9186 HEAD@{34}: cherry-pick: Merge pull request #12283 from JuanitoFatas/rails-on-rack
+582a90c HEAD@{35}: checkout: moving from master to 4-0-stable
+```
+
+!SLIDE left
+
+# Weitere Informationen
+
+* man pages ([http://git-scm.com/docs](http://git-scm.com/docs))
+* Git Internals PDF ([http://github.com/pluralsight/git-internals-pdf](http://github.com/pluralsight/git-internals-pdf))
+* Pro Git Buch ([http://git-scm.com/book](http://git-scm.com/book))
 
 !SLIDE
 
