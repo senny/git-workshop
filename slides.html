@@ -60,6 +60,9 @@
         <li>Intermediate Git</li>
         <li>Übungen</li>
         </ul>
+        
+        
+        <p><em>Bei Fragen einfach unterbrechen</em></p>
       </div>
       <div class='spacer bottom'></div>
     </section>
@@ -449,7 +452,7 @@
         <h2>Fast Forward</h2>
         
         <ul>
-        <li>Merge von einem nicht abgezweiten Branch => Fast Forward</li>
+        <li>Merge von einem nicht divergierenden Branch => Fast Forward</li>
         <li>Fast Forward Merge => kein Merge-Commit</li>
         <li>Fast Forward Merge => Branch in der History nicht mehr sichtbar</li>
         </ul>
@@ -565,10 +568,56 @@
         
         <ul>
         <li>NICHT rebasen mit veröffentlichten Commits</li>
-        <li>NICHT rebasen bei grossen Branches</li>
+        <li>NICHT rebasen bei grossen / umfänglichen Branches</li>
         <li>Merge ist in der History sichtbar (wenn nicht FF)</li>
         <li>Rebase simuliert lineare History</li>
         <li>Rebase --onto um Commits zu verschieben</li>
+        </ul>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='left slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Reflog</h1>
+        
+        <ul>
+        <li>Zeichnet Verändernungen an den Branches auf</li>
+        <li>Lokal gespeichert / unterschiedlich pro Repository</li>
+        <li>Hilfreich bei "rescue missions" ;)</li>
+        </ul>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><strong>git reflog</strong></p>
+        
+        <p><textarea class='code' display='none' mode='plain'>0a620d1 HEAD@{11}: reset: moving to HEAD^&#x000A;95a9b7d HEAD@{12}: rebase -i (finish): returning to refs/heads/store_accessor_hstore_bug&#x000A;95a9b7d HEAD@{13}: rebase -i (pick): hstore only allows string keys.&#x000A;0a620d1 HEAD@{14}: rebase -i (pick): `stored_attributes` need to be specific to a subclass.&#x000A;d138b71 HEAD@{15}: rebase -i (pick): test to verify the `ActiveRecord::Store` behavior with PG&#x000A;bdeeba1 HEAD@{16}: checkout: moving from store_accessor_hstore_bug to bdeeba1&#x000A;a04f344 HEAD@{17}: commit: `stored_attributes` need to be specific to a subclass.&#x000A;6f7b700 HEAD@{18}: commit: test to verify the `ActiveRecord::Store` behavior with PG's json type&#x000A;33829ab HEAD@{19}: commit (amend): hstore only allows string keys.&#x000A;28152cd HEAD@{20}: commit: hstore only allows string keys.&#x000A;bdeeba1 HEAD@{21}: reset: moving to HEAD^&#x000A;1986aa9 HEAD@{22}: rebase finished: returning to refs/heads/store_accessor_hstore_bug&#x000A;1986aa9 HEAD@{23}: rebase: TMP&#x000A;bdeeba1 HEAD@{24}: checkout: moving from store_accessor_hstore_bug to bdeeba1&#x000A;94fb685 HEAD@{25}: checkout: moving from master to store_accessor_hstore_bug&#x000A;bdeeba1 HEAD@{26}: rebase finished: returning to refs/heads/master&#x000A;bdeeba1 HEAD@{27}: checkout: moving from master to bdeeba1&#x000A;a0c0c1c HEAD@{28}: checkout: moving from store_accessor_hstore_bug to master&#x000A;94fb685 HEAD@{29}: rebase finished: returning to refs/heads/store_accessor_hstore_bug&#x000A;94fb685 HEAD@{30}: rebase: TMP&#x000A;a0c0c1c HEAD@{31}: checkout: moving from store_accessor_hstore_bug to a0c0c1c&#x000A;329d9f8 HEAD@{32}: checkout: moving from master to store_accessor_hstore_bug&#x000A;a0c0c1c HEAD@{33}: checkout: moving from 4-0-stable to master&#x000A;cfd9186 HEAD@{34}: cherry-pick: Merge pull request #12283 from JuanitoFatas/rails-on-rack&#x000A;582a90c HEAD@{35}: checkout: moving from master to 4-0-stable</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><strong>git reflog --date=relative 4-0-stable</strong></p>
+        
+        <p><textarea class='code' display='none' mode='plain'>1660f53 4-0-stable@{11 minutes ago}: rebase finished: refs/heads/4-0-stable onto 1660f53&#x000A;8355355 4-0-stable@{2 days ago}: rebase finished: refs/heads/4-0-stable onto 8355355&#x000A;1366df2 4-0-stable@{3 days ago}: commit (cherry-pick): cleanup changelog entry format.[ci skip]&#x000A;146132d 4-0-stable@{3 days ago}: rebase finished: refs/heads/4-0-stable onto 146132d&#x000A;9c98535 4-0-stable@{3 days ago}: rebase finished: refs/heads/4-0-stable onto 9c98535&#x000A;c3fa44b 4-0-stable@{6 days ago}: rebase finished: refs/heads/4-0-stable onto c3fa44b&#x000A;cfd9186 4-0-stable@{8 days ago}: cherry-pick: Merge pull request #12283 from Juanito/patch9&#x000A;582a90c 4-0-stable@{8 days ago}: cherry-pick: Merge pull request #12473 from claudiob/patch1&#x000A;9f5ec21 4-0-stable@{9 days ago}: cherry-pick: Merge pull request #12463 from ulyssecarion/master&#x000A;64ba1ab 4-0-stable@{9 days ago}: rebase finished: refs/heads/4-0-stable onto 64ba1ab&#x000A;faaa57f 4-0-stable@{2 weeks ago}: cherry-pick: Merge pull request #12431 from GRoguelon/master&#x000A;4135e60 4-0-stable@{2 weeks ago}: cherry-pick: Merge pull request #12430 from vipulnsward/fix&#x000A;ceaf211 4-0-stable@{2 weeks ago}: rebase finished: refs/heads/4-0-stable onto ceaf21</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='left slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Weitere Informationen</h1>
+        
+        <ul>
+        <li>Man Pages (<a href="http://git-scm.com/docs">http://git-scm.com/docs</a>)</li>
+        <li>Git Internals PDF (<a href="http://github.com/pluralsight/git-internals-pdf">http://github.com/pluralsight/git-internals-pdf</a>)</li>
+        <li>Pro Git Buch (<a href="http://git-scm.com/book">http://git-scm.com/book</a>)</li>
         </ul>
       </div>
       <div class='spacer bottom'></div>
@@ -580,9 +629,26 @@
       </div>
       <div class='spacer bottom'></div>
     </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Ziele</h2>
+        
+        <ul>
+        <li>Alleine oder zu zweit</li>
+        <li>Möglichkeiten von Git erkunden</li>
+        <li>Man-Pages lesen lernen</li>
+        <li>Wissen vertiefen</li>
+        <li>Fremdes Git Repository analysieren</li>
+        </ul>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
     <section class='nolines slide'>
       <div class='spacer top'></div>
       <div class='content'>
+        <h3><a href="http://goo.gl/G7y4ql">Übungen: http://goo.gl/G7y4ql</a></h3>
+        
         <p>$ git clone https://github.com/senny/git-workshop-rails</p>
       </div>
       <div class='spacer bottom'></div>

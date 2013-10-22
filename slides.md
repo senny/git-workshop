@@ -24,6 +24,8 @@
 * Intermediate Git
 * Übungen
 
+*Bei Fragen einfach unterbrechen*
+
 !SLIDE
 
 # Git Internals
@@ -394,15 +396,16 @@ Finished one cherry-pick.
 
 # Reflog #
 
-* Zeichnet Verändernungen an den Referenzen auf
+* Zeichnet Verändernungen an den Branches auf
 * Lokal gespeichert / unterschiedlich pro Repository
 * Hilfreich bei "rescue missions" ;)
 
 !SLIDE
 
-```
+**git reflog**
 
-$ git reflog
+```plain
+
 0a620d1 HEAD@{11}: reset: moving to HEAD^
 95a9b7d HEAD@{12}: rebase -i (finish): returning to refs/heads/store_accessor_hstore_bug
 95a9b7d HEAD@{13}: rebase -i (pick): hstore only allows string keys.
@@ -430,11 +433,32 @@ cfd9186 HEAD@{34}: cherry-pick: Merge pull request #12283 from JuanitoFatas/rail
 582a90c HEAD@{35}: checkout: moving from master to 4-0-stable
 ```
 
+!SLIDE
+
+**git reflog --date=relative 4-0-stable**
+
+```plain
+
+1660f53 4-0-stable@{11 minutes ago}: rebase finished: refs/heads/4-0-stable onto 1660f53
+8355355 4-0-stable@{2 days ago}: rebase finished: refs/heads/4-0-stable onto 8355355
+1366df2 4-0-stable@{3 days ago}: commit (cherry-pick): cleanup changelog entry format.[ci skip]
+146132d 4-0-stable@{3 days ago}: rebase finished: refs/heads/4-0-stable onto 146132d
+9c98535 4-0-stable@{3 days ago}: rebase finished: refs/heads/4-0-stable onto 9c98535
+c3fa44b 4-0-stable@{6 days ago}: rebase finished: refs/heads/4-0-stable onto c3fa44b
+cfd9186 4-0-stable@{8 days ago}: cherry-pick: Merge pull request #12283 from Juanito/patch9
+582a90c 4-0-stable@{8 days ago}: cherry-pick: Merge pull request #12473 from claudiob/patch1
+9f5ec21 4-0-stable@{9 days ago}: cherry-pick: Merge pull request #12463 from ulyssecarion/master
+64ba1ab 4-0-stable@{9 days ago}: rebase finished: refs/heads/4-0-stable onto 64ba1ab
+faaa57f 4-0-stable@{2 weeks ago}: cherry-pick: Merge pull request #12431 from GRoguelon/master
+4135e60 4-0-stable@{2 weeks ago}: cherry-pick: Merge pull request #12430 from vipulnsward/fix
+ceaf211 4-0-stable@{2 weeks ago}: rebase finished: refs/heads/4-0-stable onto ceaf21
+```
+
 !SLIDE left
 
 # Weitere Informationen
 
-* man pages ([http://git-scm.com/docs](http://git-scm.com/docs))
+* Man Pages ([http://git-scm.com/docs](http://git-scm.com/docs))
 * Git Internals PDF ([http://github.com/pluralsight/git-internals-pdf](http://github.com/pluralsight/git-internals-pdf))
 * Pro Git Buch ([http://git-scm.com/book](http://git-scm.com/book))
 
@@ -444,6 +468,18 @@ cfd9186 HEAD@{34}: cherry-pick: Merge pull request #12283 from JuanitoFatas/rail
 
 }}} images/exercise.jpg
 
+!SLIDE
+
+## Ziele
+
+* Alleine oder zu zweit
+* Möglichkeiten von Git erkunden
+* Man-Pages lesen lernen
+* Wissen vertiefen
+* Fremdes Git Repository analysieren
+
 !SLIDE nolines
+
+### [Übungen: http://goo.gl/G7y4ql](http://goo.gl/G7y4ql)
 
 $ git clone https://github.com/senny/git-workshop-rails
