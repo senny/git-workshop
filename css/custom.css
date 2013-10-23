@@ -12,8 +12,8 @@
 /*}*/
 
 
-.about img {
-  display: none;
+.about .content ul li {
+  font-size: 0.8em !important;
 }
 
 .nolines .CodeMirror-gutter {

@@ -32,24 +32,7 @@
       </div>
       <div class='spacer bottom'></div>
     </section>
-    <section class='about slide'>
-      <div class='spacer top'></div>
-      <div class='content'>
-        <h1>About me</h1>
-        
-        <h2>https://github.com/senny</h2>
-        
-        <h3>Ruby / Python Developer @ 4teamwork</h3>
-        
-        <h3>Git seit 5 Jahren</h3>
-        
-        <h3>Rails Committer</h3>
-        
-        <p><img src="images/avatar.png" alt="" /></p>
-      </div>
-      <div class='spacer bottom'></div>
-    </section>
-    <section class='slide'>
+    <section class='left slide'>
       <div class='spacer top'></div>
       <div class='content'>
         <h1>Agenda</h1>
@@ -59,10 +42,36 @@
         <li>Git Internals</li>
         <li>Intermediate Git</li>
         <li>Übungen</li>
+        <li>Abschluss</li>
         </ul>
         
         
         <p><em>Bei Fragen einfach unterbrechen</em></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='about slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>About me</h1>
+        
+        <h2>https://github.com/senny</h2>
+        
+        <h5>Ruby / Python Developer @ 4teamwork</h5>
+        
+        <h5>Git seit 6 Jahren</h5>
+        
+        <h5>Rails Committer</h5>
+        
+        <h5>Ruvetia Organizer</h5>
+        
+        <h5>OpenSource Maintainer</h5>
+        
+        <ul>
+        <li><a href="https://github.com/ryandotsmith/queue_classic">queue_classic</a></li>
+        <li><a href="https://github.com/jonleighton/spring">spring</a></li>
+        <li><a href="http://www.emacswiki.org/emacs/senny">Emacs stuff</a></li>
+        </ul>
       </div>
       <div class='spacer bottom'></div>
     </section>
@@ -73,7 +82,7 @@
       </div>
       <div class='spacer bottom'></div>
     </section>
-    <section class='bullets slide'>
+    <section class='left slide'>
       <div class='spacer top'></div>
       <div class='content'>
         <h1>Der .git Ordner</h1>
@@ -91,7 +100,7 @@
     <section class='slide'>
       <div class='spacer top'></div>
       <div class='content'>
-        <h1>Objekt Datenbank</h1>
+        <h2>Objekt Datenbank</h2>
       </div>
       <div class='spacer bottom'></div>
     </section>
@@ -130,10 +139,10 @@
       </div>
       <div class='spacer bottom'></div>
     </section>
-    <section class='bullets slide'>
+    <section class='left slide'>
       <div class='spacer top'></div>
       <div class='content'>
-        <h1>Referenzen</h1>
+        <h2>Referenzen</h2>
         
         <ul>
         <li>Pointer auf ein Commit Objekt</li>
@@ -151,10 +160,10 @@
       </div>
       <div class='spacer bottom'></div>
     </section>
-    <section class='bullets slide'>
+    <section class='left slide'>
       <div class='spacer top'></div>
       <div class='content'>
-        <h1>Symbolische Referenzen</h1>
+        <h2>Symbolische Referenzen</h2>
         
         <ul>
         <li>Pointer auf ein Branch oder Commit Objekt</li>
@@ -271,7 +280,7 @@
       <div class='content'>
         <h2>Partial SHA-1</h2>
         
-        <p><textarea class='code' display='none' mode='plain'>b645be7a5d01cb5e143fcd2c0581a4dc69c595b9&#x000A;b645be7a5d01cb5e1&#x000A;b645be7a5d&#x000A;b645be7</textarea>
+        <p><textarea class='code' display='none' mode='plain'>b645be7a5d01cb5e143fcd2c0581a4dc69c59&#x000A;b645be7a5d01cb5e1&#x000A;b645be7a5d&#x000A;b645be7</textarea>
     </p>
       </div>
       <div class='spacer bottom'></div>
@@ -360,8 +369,8 @@
         
         <ul>
         <li>Aktuelle Arbeiten "zwischenspeichern"</li>
-        <li>Kann jederzeit "hervorgeholt" werden</li>
         <li>Äderungen auf einen anderen Branch verschieben</li>
+        <li>ermöglich ein Pull bei Änderungen im Working Directory</li>
         </ul>
       </div>
       <div class='spacer bottom'></div>
@@ -369,7 +378,7 @@
     <section class='nolines slide'>
       <div class='spacer top'></div>
       <div class='content'>
-        <p><textarea class='code' display='none' mode='plain'>$ git status&#x000A; ## master&#x000A; M git_intermediate/git_intermediate.md&#x000A;&#x000A;$ git stash&#x000A;&#x000A;$ git status&#x000A; ## master&#x000A;&#x000A;$ git stash pop&#x000A;&#x000A;$ git status&#x000A; ## master&#x000A; M git_intermediate/git_intermediate.md</textarea>
+        <p><textarea class='code' display='none' mode='plain'>$ git status&#x000A; ## master&#x000A; M git_intermediate/git_intermediate.md&#x000A;&#x000A;$ git stash&#x000A;$ git status&#x000A; ## master&#x000A;&#x000A;$ git stash pop&#x000A;$ git status&#x000A; ## master&#x000A; M git_intermediate/git_intermediate.md</textarea>
     </p>
       </div>
       <div class='spacer bottom'></div>
@@ -383,6 +392,7 @@
         <li>Wer hat eine bestimmte Zeile geschrieben</li>
         <li>Von wem wurde eine Datei alles verändert</li>
         <li>Wann wurde eine Zeile das letzte Mal verändert</li>
+        <li>Zusammengehörigen Code finden (Tests / Implementation)</li>
         </ul>
       </div>
       <div class='spacer bottom'></div>
@@ -403,7 +413,7 @@
         <ul>
         <li>Commits über mehrere Branches verwenden</li>
         <li>Bugfix auf mehrere Releases anwenden</li>
-        <li>Nur einen Teil eines Branches integrieren</li>
+        <li>Nur einen Teil eines Branches verwenden</li>
         </ul>
       </div>
       <div class='spacer bottom'></div>
@@ -438,15 +448,15 @@
         <h1>Merging</h1>
         
         <ul>
-        <li>Zusammenfügen von zwei Branches</li>
-        <li>Ein Merge-Commit hat mehr als 1 Parent.</li>
+        <li>Zusammenfügen von zwei oder mehr Branches</li>
+        <li>Ein Merge-Commit hat mehr als 1 Parent</li>
         <li>Ein Merge kann rückgänig gemacht werden, wenn man das Merge-Commit
         entfernt</li>
         </ul>
       </div>
       <div class='spacer bottom'></div>
     </section>
-    <section class='slide'>
+    <section class='left slide'>
       <div class='spacer top'></div>
       <div class='content'>
         <h2>Fast Forward</h2>

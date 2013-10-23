@@ -4,18 +4,7 @@
 
 # Git Workshop
 
-!SLIDE about
-
-# About me
-
-## https://github.com/senny
-### Ruby / Python Developer @ 4teamwork
-### Git seit 5 Jahren
-### Rails Committer
-
-![](images/avatar.png)
-
-!SLIDE
+!SLIDE left
 
 # Agenda
 
@@ -23,8 +12,24 @@
 * Git Internals
 * Intermediate Git
 * Übungen
+* Abschluss
 
 *Bei Fragen einfach unterbrechen*
+
+!SLIDE about
+
+# About me
+
+## https://github.com/senny
+
+##### Ruby / Python Developer @ 4teamwork
+##### Git seit 6 Jahren
+##### Rails Committer
+##### Ruvetia Organizer
+##### OpenSource Maintainer
+* [queue_classic](https://github.com/ryandotsmith/queue_classic)
+* [spring](https://github.com/jonleighton/spring)
+* [Emacs stuff](http://www.emacswiki.org/emacs/senny)
 
 !SLIDE
 
@@ -32,7 +37,7 @@
 
 }}} images/clockwork.jpg
 
-!SLIDE bullets
+!SLIDE left
 # Der .git Ordner #
 
 * Konfigurationsdatei (config)
@@ -42,7 +47,7 @@
 * Referenzen (refs)
 
 !SLIDE
-# Objekt Datenbank #
+## Objekt Datenbank
 
 !SLIDE image-focus
 ![](images/internals/objekt_datenbank.jpg)
@@ -59,8 +64,8 @@
 !SLIDE image-focus
 ![](images/internals/tag.jpg)
 
-!SLIDE bullets
-# Referenzen #
+!SLIDE left
+## Referenzen
 
 * Pointer auf ein Commit Objekt
 * Werden im Ordner .git/refs gespeichert
@@ -73,8 +78,8 @@ $ cat .git/refs/heads/master
 2d5f0b92c01b3af6b18fa9fd4b9457f28c55f8c9
 ```
 
-!SLIDE bullets
-# Symbolische Referenzen #
+!SLIDE left
+## Symbolische Referenzen
 
 * Pointer auf ein Branch oder Commit Objekt
 * Werden im Ordner .git/ gespeichert
@@ -82,7 +87,7 @@ $ cat .git/refs/heads/master
 
 !SLIDE commandline
 
-## Branch ##
+## Branch
 
 ```shell
 $ git checkout master
@@ -142,7 +147,7 @@ b645be7a5d01cb5e143fcd2c0581a4dc69c595b9
 ## Partial SHA-1
 
 ```plain
-b645be7a5d01cb5e143fcd2c0581a4dc69c595b9
+b645be7a5d01cb5e143fcd2c0581a4dc69c59
 b645be7a5d01cb5e1
 b645be7a5d
 b645be7
@@ -225,8 +230,8 @@ master..my_feature
 # Stash
 
 * Aktuelle Arbeiten "zwischenspeichern"
-* Kann jederzeit "hervorgeholt" werden
 * Äderungen auf einen anderen Branch verschieben
+* ermöglich ein Pull bei Änderungen im Working Directory
 
 !SLIDE nolines
 
@@ -236,12 +241,10 @@ $ git status
  M git_intermediate/git_intermediate.md
 
 $ git stash
-
 $ git status
  ## master
 
 $ git stash pop
-
 $ git status
  ## master
  M git_intermediate/git_intermediate.md
@@ -253,6 +256,7 @@ $ git status
 * Wer hat eine bestimmte Zeile geschrieben
 * Von wem wurde eine Datei alles verändert
 * Wann wurde eine Zeile das letzte Mal verändert
+* Zusammengehörigen Code finden (Tests / Implementation)
 
 !SLIDE nolines
 
@@ -283,7 +287,7 @@ f8ff0c06 (Petr Baudis             2005-09-22 11:25:28 +0200   17) static int ver
 
 * Commits über mehrere Branches verwenden
 * Bugfix auf mehrere Releases anwenden
-* Nur einen Teil eines Branches integrieren
+* Nur einen Teil eines Branches verwenden
 
 !SLIDE nolines
 
@@ -315,17 +319,17 @@ Finished one cherry-pick.
 !SLIDE left
 # Merging #
 
-* Zusammenfügen von zwei Branches
-* Ein Merge-Commit hat mehr als 1 Parent.
+* Zusammenfügen von zwei oder mehr Branches
+* Ein Merge-Commit hat mehr als 1 Parent
 * Ein Merge kann rückgänig gemacht werden, wenn man das Merge-Commit
   entfernt
 
-!SLIDE
+!SLIDE left
 ## Fast Forward
 
-* Merge von einem nicht divergierenden Branch => Fast Forward
-* Fast Forward Merge => kein Merge-Commit
-* Fast Forward Merge => Branch in der History nicht mehr sichtbar
+* Nur wenn Branch nicht divergiert
+* kein Merge-Commit
+* Branch in der History nicht mehr sichtbar
 
 !SLIDE
 
