@@ -486,4 +486,6 @@ ceaf211 4-0-stable@{2 weeks ago}: rebase finished: refs/heads/4-0-stable onto ce
 
 ### [Übungen: http://goo.gl/G7y4ql](http://goo.gl/G7y4ql)
 
-$ git clone https://github.com/senny/git-workshop-rails
+**$ git clone https://github.com/senny/git-workshop-rails**
+
+*Die Slides sind auch online verfügbar: [http://senny.github.io/git-workshop](http://senny.github.io/git-workshop)*
