@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Git Workshop</title>
+    <meta charset='utf-8'>
+    <meta content='width=1024, user-scalable=no' name='viewport'>
+    <!-- deck.js's core css -->
+    <link href="deck.js/core/deck.core.css" rel="stylesheet" type="text/css"/>
+    <!-- deck.js extension CSS files -->
+    <link href="deck.js/extensions/codemirror/deck.codemirror.css" rel="stylesheet" type="text/css"/>
+    <link href="deck.js/extensions/goto/deck.goto.css" rel="stylesheet" type="text/css"/>
+    <link href="deck.js/extensions/hash/deck.hash.css" rel="stylesheet" type="text/css"/>
+    <link href="deck.js/extensions/menu/deck.menu.css" rel="stylesheet" type="text/css"/>
+    <link href="deck.js/extensions/navigation/deck.navigation.css" rel="stylesheet" type="text/css"/>
+    <link href="deck.js/extensions/scale/deck.scale.css" rel="stylesheet" type="text/css"/>
+    <link href="deck.js/extensions/status/deck.status.css" rel="stylesheet" type="text/css"/>
+    <!-- all css in the css dir: Keydown CSS, your custom CSS, and themes from deck.js -->
+    <link href="css/keydown.css" rel="stylesheet" type="text/css"/>
+    <link href="css/custom.css" rel="stylesheet" type="text/css"/>
+    <link href="css/default.css" rel="stylesheet" type="text/css"/>
+    <link href="css/horizontal-slide.css" rel="stylesheet" type="text/css"/>
+    <link href="css/swiss.css" rel="stylesheet" type="text/css"/>
+    <link href="css/theme.css" rel="stylesheet" type="text/css"/>
+    <!-- Modernizr (provided for legacy browsers) -->
+    <script src="deck.js/support/modernizr.custom.js" type="text/javascript"></script>
+  </head>
+  <body class='deck-container keydown'>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Git Workshop</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='left slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Agenda</h1>
+        
+        <ul>
+        <li>Vorstellung</li>
+        <li>Git Internals</li>
+        <li>Intermediate Git</li>
+        <li>Übungen</li>
+        <li>Abschluss</li>
+        </ul>
+        
+        
+        <p><em>Bei Fragen einfach unterbrechen</em></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='about slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>About me</h1>
+        
+        <h2>https://github.com/senny</h2>
+        
+        <h5>Ruby / Python Developer @ 4teamwork</h5>
+        
+        <h5>Git seit 6 Jahren</h5>
+        
+        <h5>Rails Committer</h5>
+        
+        <h5>Ruvetia Organizer</h5>
+        
+        <h5>OpenSource Maintainer</h5>
+        
+        <ul>
+        <li><a href="https://github.com/ryandotsmith/queue_classic">queue_classic</a></li>
+        <li><a href="https://github.com/jonleighton/spring">spring</a></li>
+        <li><a href="http://www.emacswiki.org/emacs/senny">Emacs stuff</a></li>
+        </ul>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='clockwork full-background slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Git Internals</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='left slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Der .git Ordner</h1>
+        
+        <ul>
+        <li>Konfigurationsdatei (config)</li>
+        <li>Hooks</li>
+        <li>Index</li>
+        <li>Objektdatenbank (objects)</li>
+        <li>Referenzen (refs)</li>
+        </ul>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Objekt Datenbank</h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='image-focus slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><img src="images/internals/objekt_datenbank.jpg" alt="" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='image-focus slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><img src="images/internals/blob.jpg" alt="" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='image-focus slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><img src="images/internals/tree.jpg" alt="" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='image-focus slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><img src="images/internals/commit.jpg" alt="" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='image-focus slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><img src="images/internals/tag.jpg" alt="" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='left slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Referenzen</h2>
+        
+        <ul>
+        <li>Pointer auf ein Commit Objekt</li>
+        <li>Werden im Ordner .git/refs gespeichert</li>
+        <li>Datei mit dem Commit-Hash als Inhalt</li>
+        </ul>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><textarea class='code' display='none' mode='shell'>$ cat .git/refs/heads/master&#x000A;2d5f0b92c01b3af6b18fa9fd4b9457f28c55f8c9</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='left slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Symbolische Referenzen</h2>
+        
+        <ul>
+        <li>Pointer auf ein Branch oder Commit Objekt</li>
+        <li>Werden im Ordner .git/ gespeichert</li>
+        <li>Datei mit dem Pfad zum Branch oder Commit-Hash als Inhalt</li>
+        </ul>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='commandline slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Branch</h2>
+        
+        <p><textarea class='code' display='none' mode='shell'>$ git checkout master&#x000A;$ cat .git/HEAD&#x000A;ref: refs/heads/master</textarea>
+    </p>
+        
+        <h2>Commit (detached HEAD)</h2>
+        
+        <p><textarea class='code' display='none' mode='shell'>$ git checkout 3ab0946&#x000A;$ cat .git/HEAD&#x000A;3ab0946694019e9ec819cddd4999b635449ecc25</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Vorgänge in einem Repository</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='image-focus slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><img src="images/internals/flow_01.jpg" alt="" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='image-focus slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><img src="images/internals/flow_02.jpg" alt="" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='image-focus slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><img src="images/internals/flow_03.jpg" alt="" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='image-focus slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><img src="images/internals/flow_04.jpg" alt="" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='image-focus slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><img src="images/internals/flow_05.jpg" alt="" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='image-focus slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><img src="images/internals/flow_06.jpg" alt="" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='image-focus slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><img src="images/internals/flow_07.jpg" alt="" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='image-focus slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><img src="images/internals/flow_08.jpg" alt="" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='image-focus slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><img src="images/internals/flow_09.jpg" alt="" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Commits benennen</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>SHA-1 Hash</h2>
+        
+        <p><textarea class='code' display='none' mode='plain'>b645be7a5d01cb5e143fcd2c0581a4dc69c595b9</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Partial SHA-1</h2>
+        
+        <p><textarea class='code' display='none' mode='plain'>b645be7a5d01cb5e143fcd2c0581a4dc69c59&#x000A;b645be7a5d01cb5e1&#x000A;b645be7a5d&#x000A;b645be7</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Branch, Remote or Tag Name (ref)</h2>
+        
+        <p><textarea class='code' display='none' mode='text'>origin/master&#x000A;refs/remotes/origin/master&#x000A;master&#x000A;refs/heads/master&#x000A;v1.0&#x000A;refs/tags/v1.0</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Carrot Parent</h2>
+        
+        <p><textarea class='code' display='none' mode='text'>master^&#x000A;master^2&#x000A;master^3</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Tilde Spec</h2>
+        
+        <p><textarea class='code' display='none' mode='text'>master~2&#x000A;master~3&#x000A;master~7</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Date Spec (Lokal)</h2>
+        
+        <p><textarea class='code' display='none' mode='text'>master@{yesterday}&#x000A;master@{1 month ago}</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Ordinal Spec (Lokal)</h2>
+        
+        <p><textarea class='code' display='none' mode='text'>master@{1}&#x000A;master@{5}</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Blob Spec</h2>
+        
+        <p><textarea class='code' display='none' mode='text'><treeish>:<path>&#x000A;&#x000A;master:/path/to/file&#x000A;my_feature:/app/models/person.rb&#x000A;release/1.0:/spec/models/person_spec.rb</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Range</h2>
+        
+        <p><textarea class='code' display='none' mode='text'><treeish>..<treeish>&#x000A;&#x000A;7b593b5..51bea1&#x000A;master..my_feature</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='circuit_board full-background slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Intermediate Git</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='left slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Stash</h1>
+        
+        <ul>
+        <li>Aktuelle Arbeiten "zwischenspeichern"</li>
+        <li>Äderungen auf einen anderen Branch verschieben</li>
+        <li>ermöglich ein Pull bei Änderungen im Working Directory</li>
+        </ul>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='nolines slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><textarea class='code' display='none' mode='plain'>$ git status&#x000A; ## master&#x000A; M git_intermediate/git_intermediate.md&#x000A;&#x000A;$ git stash&#x000A;$ git status&#x000A; ## master&#x000A;&#x000A;$ git stash pop&#x000A;$ git status&#x000A; ## master&#x000A; M git_intermediate/git_intermediate.md</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='left slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Blame</h1>
+        
+        <ul>
+        <li>Wer hat eine bestimmte Zeile geschrieben</li>
+        <li>Von wem wurde eine Datei alles verändert</li>
+        <li>Wann wurde eine Zeile das letzte Mal verändert</li>
+        <li>Zusammengehörigen Code finden (Tests / Implementation)</li>
+        </ul>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='nolines slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><textarea class='code' display='none' mode='plain'>$ git blame daemon.c&#x000A;979e32fa (Randal L. Schwartz      2005-10-25 16:29:09 -0700    1) #include "cache.h"&#x000A;85023577 (Junio C Hamano          2006-12-19 14:34:12 -0800    2) #include "pkt-line.h"&#x000A;77cb17e9 (Michal Ostrowski        2006-01-10 21:12:17 -0500    3) #include "exec_cmd.h"&#x000A;49ba83fb (Jon Loeliger            2006-09-19 20:31:51 -0500    4) #include "interpolate.h"&#x000A;f8ff0c06 (Petr Baudis             2005-09-22 11:25:28 +0200    5)&#x000A;85023577 (Junio C Hamano          2006-12-19 14:34:12 -0800    6) #include <syslog.h>&#x000A;85023577 (Junio C Hamano          2006-12-19 14:34:12 -0800    7)&#x000A;695dffe2 (Johannes Schindelin     2006-09-28 12:00:35 +0200    8) #ifndef HOST_NAME_MAX&#x000A;695dffe2 (Johannes Schindelin     2006-09-28 12:00:35 +0200    9) #define HOST_NAME_MAX 256&#x000A;695dffe2 (Johannes Schindelin     2006-09-28 12:00:35 +0200   10) #endif&#x000A;695dffe2 (Johannes Schindelin     2006-09-28 12:00:35 +0200   11)&#x000A;415e7b87 (Patrick Welche          2007-10-18 18:17:39 +0100   12) #ifndef NI_MAXSERV&#x000A;415e7b87 (Patrick Welche          2007-10-18 18:17:39 +0100   13) #define NI_MAXSERV 32&#x000A;415e7b87 (Patrick Welche          2007-10-18 18:17:39 +0100   14) #endif&#x000A;415e7b87 (Patrick Welche          2007-10-18 18:17:39 +0100   15)&#x000A;9048fe1c (Petr Baudis             2005-09-24 16:13:01 +0200   16) static int log_syslog;&#x000A;f8ff0c06 (Petr Baudis             2005-09-22 11:25:28 +0200   17) static int verbose;&#x000A;1955fabf (Mark Wooding            2006-02-03 20:27:04 +0000   18) static int reuseaddr;</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='left slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Cherry Picking</h1>
+        
+        <ul>
+        <li>Commits über mehrere Branches verwenden</li>
+        <li>Bugfix auf mehrere Releases anwenden</li>
+        <li>Nur einen Teil eines Branches verwenden</li>
+        </ul>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='nolines slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Commit</h2>
+        
+        <p><strong>$ git cherry-pick 6018dbfa70</strong></p>
+        
+        <p><textarea class='code' display='none' mode='plain'>Finished one cherry-pick.&#x000A;[test e144b96] Add unit tests for index manipulation&#x000A; Author: Vicent Marti <tanoku@gmail.com>&#x000A; 4 files changed, 209 insertions(+), 0 deletions(-)</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Merge Commit</h2>
+        
+        <p><strong>$ git cherry-pick -m1 bdeeba1</strong></p>
+        
+        <p><textarea class='code' display='none' mode='plain'>[test be2cee9] Merge pull request #12485 from arunagw/code-removal&#x000A; Author: Rafael Mendonça França <rafaelmfranca@gmail.com>&#x000A; 2 files changed, 35 deletions(-)&#x000A; rename actionview/test/{lib => actionpack}/controller/view_paths_test.rb (100%)&#x000A; delete mode 100644 actionview/test/lib/controller/fake_controllers.rb</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='left slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Merging</h1>
+        
+        <ul>
+        <li>Zusammenfügen von zwei oder mehr Branches</li>
+        <li>Ein Merge-Commit hat mehr als 1 Parent</li>
+        <li>Ein Merge kann rückgänig gemacht werden, wenn man das Merge-Commit
+        entfernt</li>
+        </ul>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='left slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Fast Forward</h2>
+        
+        <ul>
+        <li>Merge von einem nicht divergierenden Branch => Fast Forward</li>
+        <li>Fast Forward Merge => kein Merge-Commit</li>
+        <li>Fast Forward Merge => Branch in der History nicht mehr sichtbar</li>
+        </ul>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><strong>git merge --no-ff topic/feature</strong>
+        <img src="images/intermediate/merge_no_ff.png" alt="git_intermediate" /></p>
+        
+        <p><strong>git merge --ff-only topic/feature</strong>
+        <img src="images/intermediate/merge_ff_only.png" alt="git_intermediate" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Rebase</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Ausgangslage</h2>
+        
+        <p><img src="images/intermediate/rebase-0.png" alt="git_intermediate" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Merge</h2>
+        
+        <p><img src="images/intermediate/rebase-1.png" alt="git_intermediate" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Rebase</h2>
+        
+        <p><img src="images/intermediate/rebase-2.png" alt="git_intermediate" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='image-focus slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Merge (FastForward)</h2>
+        
+        <p><img src="images/intermediate/rebase-3.png" alt="git_intermediate" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Rebase II</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='image-focus slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Ausgangslage</h2>
+        
+        <p><img src="images/intermediate/rebase2-0.png" alt="git_intermediate" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><strong>git rebase --onto master server client</strong>
+        <img src="images/intermediate/rebase2-1.png" alt="git_intermediate" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><strong>git checkout master &amp;&amp; git merge client</strong>
+        <img src="images/intermediate/rebase2-2.png" alt="git_intermediate" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><strong>git rebase master server</strong>
+        <img src="images/intermediate/rebase2-3.png" alt="git_intermediate" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><strong>git checkout master &amp;&amp; git merge server</strong>
+        <img src="images/intermediate/rebase2-4.png" alt="git_intermediate" /></p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='left slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Rebase | Merge</h1>
+        
+        <ul>
+        <li>NICHT rebasen mit veröffentlichten Commits</li>
+        <li>NICHT rebasen bei grossen / umfänglichen Branches</li>
+        <li>Merge ist in der History sichtbar (wenn nicht FF)</li>
+        <li>Rebase simuliert lineare History</li>
+        <li>Rebase --onto um Commits zu verschieben</li>
+        </ul>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='left slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Reflog</h1>
+        
+        <ul>
+        <li>Zeichnet Verändernungen an den Branches auf</li>
+        <li>Lokal gespeichert / unterschiedlich pro Repository</li>
+        <li>Hilfreich bei "rescue missions" ;)</li>
+        </ul>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><strong>git reflog</strong></p>
+        
+        <p><textarea class='code' display='none' mode='plain'>0a620d1 HEAD@{11}: reset: moving to HEAD^&#x000A;95a9b7d HEAD@{12}: rebase -i (finish): returning to refs/heads/store_accessor_hstore_bug&#x000A;95a9b7d HEAD@{13}: rebase -i (pick): hstore only allows string keys.&#x000A;0a620d1 HEAD@{14}: rebase -i (pick): `stored_attributes` need to be specific to a subclass.&#x000A;d138b71 HEAD@{15}: rebase -i (pick): test to verify the `ActiveRecord::Store` behavior with PG&#x000A;bdeeba1 HEAD@{16}: checkout: moving from store_accessor_hstore_bug to bdeeba1&#x000A;a04f344 HEAD@{17}: commit: `stored_attributes` need to be specific to a subclass.&#x000A;6f7b700 HEAD@{18}: commit: test to verify the `ActiveRecord::Store` behavior with PG's json type&#x000A;33829ab HEAD@{19}: commit (amend): hstore only allows string keys.&#x000A;28152cd HEAD@{20}: commit: hstore only allows string keys.&#x000A;bdeeba1 HEAD@{21}: reset: moving to HEAD^&#x000A;1986aa9 HEAD@{22}: rebase finished: returning to refs/heads/store_accessor_hstore_bug&#x000A;1986aa9 HEAD@{23}: rebase: TMP&#x000A;bdeeba1 HEAD@{24}: checkout: moving from store_accessor_hstore_bug to bdeeba1&#x000A;94fb685 HEAD@{25}: checkout: moving from master to store_accessor_hstore_bug&#x000A;bdeeba1 HEAD@{26}: rebase finished: returning to refs/heads/master&#x000A;bdeeba1 HEAD@{27}: checkout: moving from master to bdeeba1&#x000A;a0c0c1c HEAD@{28}: checkout: moving from store_accessor_hstore_bug to master&#x000A;94fb685 HEAD@{29}: rebase finished: returning to refs/heads/store_accessor_hstore_bug&#x000A;94fb685 HEAD@{30}: rebase: TMP&#x000A;a0c0c1c HEAD@{31}: checkout: moving from store_accessor_hstore_bug to a0c0c1c&#x000A;329d9f8 HEAD@{32}: checkout: moving from master to store_accessor_hstore_bug&#x000A;a0c0c1c HEAD@{33}: checkout: moving from 4-0-stable to master&#x000A;cfd9186 HEAD@{34}: cherry-pick: Merge pull request #12283 from JuanitoFatas/rails-on-rack&#x000A;582a90c HEAD@{35}: checkout: moving from master to 4-0-stable</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <p><strong>git reflog --date=relative 4-0-stable</strong></p>
+        
+        <p><textarea class='code' display='none' mode='plain'>1660f53 4-0-stable@{11 minutes ago}: rebase finished: refs/heads/4-0-stable onto 1660f53&#x000A;8355355 4-0-stable@{2 days ago}: rebase finished: refs/heads/4-0-stable onto 8355355&#x000A;1366df2 4-0-stable@{3 days ago}: commit (cherry-pick): cleanup changelog entry format.[ci skip]&#x000A;146132d 4-0-stable@{3 days ago}: rebase finished: refs/heads/4-0-stable onto 146132d&#x000A;9c98535 4-0-stable@{3 days ago}: rebase finished: refs/heads/4-0-stable onto 9c98535&#x000A;c3fa44b 4-0-stable@{6 days ago}: rebase finished: refs/heads/4-0-stable onto c3fa44b&#x000A;cfd9186 4-0-stable@{8 days ago}: cherry-pick: Merge pull request #12283 from Juanito/patch9&#x000A;582a90c 4-0-stable@{8 days ago}: cherry-pick: Merge pull request #12473 from claudiob/patch1&#x000A;9f5ec21 4-0-stable@{9 days ago}: cherry-pick: Merge pull request #12463 from ulyssecarion/master&#x000A;64ba1ab 4-0-stable@{9 days ago}: rebase finished: refs/heads/4-0-stable onto 64ba1ab&#x000A;faaa57f 4-0-stable@{2 weeks ago}: cherry-pick: Merge pull request #12431 from GRoguelon/master&#x000A;4135e60 4-0-stable@{2 weeks ago}: cherry-pick: Merge pull request #12430 from vipulnsward/fix&#x000A;ceaf211 4-0-stable@{2 weeks ago}: rebase finished: refs/heads/4-0-stable onto ceaf21</textarea>
+    </p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='left slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Weitere Informationen</h1>
+        
+        <ul>
+        <li>Man Pages (<a href="http://git-scm.com/docs">http://git-scm.com/docs</a>)</li>
+        <li>Git Internals PDF (<a href="http://github.com/pluralsight/git-internals-pdf">http://github.com/pluralsight/git-internals-pdf</a>)</li>
+        <li>Pro Git Buch (<a href="http://git-scm.com/book">http://git-scm.com/book</a>)</li>
+        </ul>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='exercise full-background slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Time to exercise</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Ziele</h2>
+        
+        <ul>
+        <li>Alleine oder zu zweit</li>
+        <li>Möglichkeiten von Git erkunden</li>
+        <li>Man-Pages lesen lernen</li>
+        <li>Wissen vertiefen</li>
+        <li>Fremdes Git Repository analysieren</li>
+        </ul>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='nolines slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h3><a href="http://goo.gl/G7y4ql">Übungen: http://goo.gl/G7y4ql</a></h3>
+        
+        <p>$ git clone https://github.com/senny/git-workshop-rails</p>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <!-- deck.js navigation extension -->
+    <a class='deck-prev-link' href='#' title='Previous'>&#8592;</a>
+    <a class='deck-next-link' href='#' title='Next'>&#8594;</a>
+    <!-- deck.js hash extension -->
+    <a class='deck-permalink' href='.' title='Permalink to this slide'>#</a>
+    <!-- deck.js status extension -->
+    <p class='deck-status'>
+      <span class='deck-status-current'></span>
+      /
+      <span class='deck-status-total'></span>
+    </p>
+    <!-- jQuery & deck.js -->
+    <script src="deck.js/support/jquery.1.6.4.min.js" type="text/javascript"></script>
+    <script src="deck.js/core/deck.core.js" type="text/javascript"></script>
+    <!-- deck.js extension JS files -->
+    <script src="deck.js/extensions/codemirror/codemirror.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/deck.codemirror.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/clike/clike.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/clojure/clojure.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/coffeescript/coffeescript.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/css/css.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/diff/diff.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/haskell/haskell.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/htmlmixed/htmlmixed.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/javascript/javascript.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/lua/lua.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/php/php.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/plsql/plsql.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/python/python.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/r/r.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/rst/rst.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/ruby/ruby.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/scheme/scheme.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/smalltalk/smalltalk.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/sparql/sparql.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/stex/stex.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/velocity/velocity.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/xml/xml.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/xmlpure/xmlpure.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/yaml/yaml.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/goto/deck.goto.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/hash/deck.hash.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/menu/deck.menu.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/navigation/deck.navigation.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/scale/deck.scale.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/status/deck.status.js" type="text/javascript"></script>
+    <!-- your custom JS here, including call to initialize deck.js-codemirror -->
+    <!-- Initialize the deck. -->
+    <script type='text/javascript'>
+      $(function() { $.deck('.slide'); });
+    </script>
+  </body>
+</html>

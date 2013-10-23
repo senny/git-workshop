@@ -1,0 +1,25 @@
+/* Custom CSS for your KeyDown presentation here */
+
+/* Uncomment to turn off deck.js navigation */
+/*.deck-prev-link,*/
+/*.deck-next-link {*/
+    /*display: none;*/
+/*}*/
+
+/* Uncomment to turn off deck.js status */
+/*.deck-status {*/
+    /*display: none;*/
+/*}*/
+
+
+.about .content ul li {
+  font-size: 0.8em !important;
+}
+
+.nolines .CodeMirror-gutter {
+  display: none;
+}
+
+.image-focus img {
+  margin-bottom: 0;
+}
