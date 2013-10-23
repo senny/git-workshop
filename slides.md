@@ -472,9 +472,9 @@ ceaf211 4-0-stable@{2 weeks ago}: rebase finished: refs/heads/4-0-stable onto ce
 
 }}} images/exercise.jpg
 
-!SLIDE
+!SLIDE left
 
-## Ziele
+# Ziele
 
 * Alleine oder zu zweit
 * Möglichkeiten von Git erkunden
